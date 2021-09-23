@@ -1,9 +1,11 @@
+const res = require("express/lib/response")
 const Skill = require('../models/skill');
 
 module.exports ={
     index: index,
     show: show,
-    new: newSkill
+    new: newSkill,
+    create: create
 }
 
 // res.render is telling the server what view to send back to the client and tells model what to go do
@@ -24,4 +26,12 @@ function show(req, res){
 function newSkill (req, res){
     console.log(req.params)
     res.render("skills/new")
+}
+
+function create(req, res){
+    console.log(req.body, "<--contents of the http request")
+    Skill.create(req.body)
+    res.redirect("/skills")
+
+    //for posts we usually redirect client to home page or index
 }
