@@ -3,6 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
+
+
+
 
 var indexRouter = require('./routes/index');
 var skillsRouter = require('./routes/skills'); //imports skills.js from routes folder
@@ -13,12 +17,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views')); //tells res.render where to look for our view files
 app.set('view engine', 'ejs');
 
+
 app.use(function(req, res, next){
   console.log("it's working")
   req.time = new Date().toLocaleDateString()
   next();
 })
 
+app.use(methodOverride("_method"))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

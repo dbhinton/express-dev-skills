@@ -1,11 +1,16 @@
-const res = require("express/lib/response")
 const Skill = require('../models/skill');
 
 module.exports ={
     index: index,
     show: show,
     new: newSkill,
-    create: create
+    create: create,
+    delete: deleteSkill
+}
+
+function deleteSkill(req, res){
+    Skill.deleteOne(req.params.id)
+    res.redirect("/skills")
 }
 
 // res.render is telling the server what view to send back to the client and tells model what to go do
